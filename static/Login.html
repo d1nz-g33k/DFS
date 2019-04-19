@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Skoms</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheet.css') }}">
+
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ url_for('static',filename='particles.js-master/demo/css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body style="background: rgb(34, 34, 34)">
+<div id="home_container">
+<div style="" id="below">
+    <!-- particles.js container -->
+	<div id="particles-js">
+
+    <!-- scripts -->
+    <script src="../static/particles.js-master/particles.js"></script>
+    <script src="../static/particles.js-master/demo/js/app.js"></script>
+
+    <!-- stats.js -->
+    <script>
+      var count_particles, stats, update;
+      stats = new Stats;
+      stats.setMode(0);
+      stats.domElement.style.position = 'absolute';
+      stats.domElement.style.left = '0px';
+      stats.domElement.style.top = '0px';
+      document.body.appendChild(stats.domElement);
+      count_particles = document.querySelector('.js-count-particles');
+      update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+          count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    </script>
+	<div id="Login">
+		<div id="head"><h2>&emsp;Login</h2></div><br>
+		<form action="/action_page.php">
+			<div id="body">
+				<input type="text" name="ID" placeholder="ID" style="border-radius: 15px; background: transparent;border-color: black; margin-bottom: 7px; text-align: center;"><br>
+				<input type="text" name="pswd" placeholder="Password" style="border-radius: 15px; background: transparent;border-color: black; text-align: center;"><br>
+				<input type="submit" value="Login" style="border-radius: 5px; background: transparent;border-color: black; margin-top: 8px; margin-bottom: 12px;">
+			</div>
+		</form> 
+	</div>
+	</div>
+</div>
+</div>
+</head>
+</body>
+</html>

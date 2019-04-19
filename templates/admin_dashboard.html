@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>DFS- Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styleadmin.css') }}">
+
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ url_for('static',filename='particles.js-master/demo/css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body style="background: rgb(34, 34, 34);">
+<div id="Menu" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <!-- <a href="{{ url_for('add_student') }}">Make_Server</a> -->
+  <a href="#">Make_Server</a>
+  <a href="#">Initiate_Server</a>
+  <a href="#">Close_Server</a>
+  <a href="#">Remove_Server</a>
+</div>
+<div id="home_container">
+	<div class="navbar" style="margin-top: -1%;">
+		<span style="font-size:30px;cursor:pointer; display:inline-block;" onclick="openNav()">&#9776; System</span>
+		<div id="ID" style="text-align: right; font-size:20px; margin-left: 82%; display:inline-block;">
+			<a href="{{ url_for('admin') }}">Admin</a>
+		</div>
+		<div id="logout">
+			<a href="{{ url_for('logout') }}"><i class="fa fa-power-off" style="font-size:25px;"></i></a>
+		</div>	
+	</div>
+<div style="" id="below">
+    <!-- particles.js container -->
+	<div id="particles-js">
+
+    <!-- scripts -->
+    <script src="../static/particles.js-master/particles.js"></script>
+    <script src="../static/particles.js-master/demo/js/app.js"></script>
+
+    <!-- stats.js -->
+    <script>
+      var count_particles, stats, update;
+      stats = new Stats;
+      stats.setMode(0);
+      stats.domElement.style.position = 'absolute';
+      stats.domElement.style.left = '0px';
+      stats.domElement.style.top = '0px';
+      document.body.appendChild(stats.domElement);
+      count_particles = document.querySelector('.js-count-particles');
+      update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+          count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    </script>
+	
+	</div>
+</div>
+</div>
+	<script>
+		function openNav() {
+		    document.getElementById("Menu").style.width = "250px";
+		    document.getElementById("home_container").style.marginLeft = "250px";
+		    document.body.style.backgroundColor = "rgba(34, 34, 34, 0.4)";
+		}
+		
+		function closeNav() {
+		    document.getElementById("Menu").style.width = "0";
+		    document.getElementById("home_container").style.marginLeft= "0";
+		    document.body.style.backgroundColor = "rgb(34,34,34)";
+		}
+	</script>
+</head>
+</body>
+</html>
