@@ -22,7 +22,7 @@ app.config.update(dict(
 	DATABASE=os.path.join(app.root_path, 'Data.db'),
 	SECRET_KEY='development key',
 	USERNAME='admin',	# The username and password can be used to make the system a server 
-	PASSWORD='default'	# Many Users can access the server systems, But only admin can make a initiate a Server 
+	PASSWORD='default'	# Many Users can access the server systems, But only admin can add a Server 
 ))
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
@@ -36,9 +36,10 @@ def connect_db():
 	
 	db.execute('CREATE TABLE IF NOT EXISTS Files()')
 	# A table to track the changes made to the Files **Time, Date, Users, file-type
+
+	db.execute('CREATE TABLE IF NOT EXISTS Servers()')
+	# Maintain details of servers
 	
-	db.execute('CREATE TABLE IF NOT EXISTS Servers()')	
-	# A table to maintain the details of the servers **Memory used in the servers
 	return db
 
 
@@ -127,12 +128,14 @@ def upload_file():
 	# To upload files to the server
 
 
-def make_server():
+def add_server():
 	# To make a server *Accessible by admin only
 
 
 def initiate_server():
 	# To start the server
+	# Everytime a server starts the number of servers running is to be updated
+	# Also the database must be updated to the latest version.  
 	s = socket.socket()         # Create a socket object
 	host = socket.gethostname() # Get local machine name
 	port = 50000                # Reserve a port for your service.
@@ -153,7 +156,7 @@ def initiate_server():
 	s.close()
 
 
-def close_server():
+def end_server():
 	# End a server
 
 
@@ -175,3 +178,5 @@ def on_new_client(clientsocket,addr):
 
 def remove_server():
 	# To remove the system from the server list
+
+
