@@ -11,6 +11,19 @@
 	padding-top: 10px;
 }
 
+#Register
+{
+	margin-top: -37%;
+	margin-right: auto;
+	margin-left: auto;
+	width: 300px ;
+	background-color: rgb(34,34,34);
+	color: rgb(240, 240, 240);
+	font-size: 10;
+	border-radius: 25px;
+	padding-top: 10px;
+}
+
 #head
 {
 	background: rgb(34, 34, 34);

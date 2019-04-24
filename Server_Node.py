@@ -34,11 +34,11 @@ def connect_db():
 	db.execute('CREATE TABLE IF NOT EXISTS Users()')	
 	# We need a table for maintaining the Users list
 	
-	db.execute('CREATE TABLE IF NOT EXISTS Files()')
+	# db.execute('CREATE TABLE IF NOT EXISTS Files()')
 	# A table to track the changes made to the Files **Time, Date, Users, file-type
 
 	db.execute('CREATE TABLE IF NOT EXISTS Servers()')
-	# Maintain details of servers
+	# Maintain details of data servers
 	
 	return db
 
@@ -48,42 +48,32 @@ def close_db(db):
 	db.close()
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def home():
+@app.route('/login/<uid>', methods=['GET', 'POST'])
+def home(uid):
 	db=connect_db()
 	c=db.cursor()
 	c.execute('SELECT Count() FROM ')
 	R = c.fetchone()[0]
 
 	if request.method == 'POST':
-		g_usr=request.form.get('ID', None)
-		if request.form.get('ID', None) != (app.config['USERNAME']):
-			c.execute('SELECT Count() FROM Users')
-			N=c.fetchone()
-			c.execute('SELECT TID FROM Users')
-			r=c.fetchall()
-			for i in range(0,N[0]):
-				m=str(r[i])
-				q=request.form.get('ID', None)
-				p="('"+q+"',)"
-				if p == m:
-					M=[m]
-					c.execute('SELECT pswd FROM Users WHERE uname=?', (q,))
-					pswd=c.fetchone()[0]
-					if(request.form.get('pswd', None) == pswd):
-						session['User'] = True
-						connect_server()
-						return redirect(url_for('user'))
-					else:
-						E='Invalid password'
-
-		elif request.form.get('pswd', None) != app.config['PASSWORD']:
-			F='Invalid password'
-			
-		else:
-			session['Admin'] = True
-			return redirect(url_for('admin'))
-			
+		c.execute('SELECT Count() FROM Users')
+		N=c.fetchone()
+		c.execute('SELECT UID FROM Users')
+		r=c.fetchall()
+		for i in range(0,N[0]):
+			m=str(r[i])
+			q=uid
+			p="('"+q+"',)"
+			if p == m:
+				M=[m]
+				c.execute('SELECT pswd FROM Users WHERE uid=?', (q,))
+				pswd=c.fetchone()[0]
+				if(request.form.get('pswd', None) == pswd):
+					session['User'] = True
+					connect_server()
+					return redirect(url_for('user'))
+				else:
+					E='Invalid password'
 	close_db(db)
 	return render_template('Login.html')
 
@@ -99,7 +89,7 @@ def admin():
 	if(session['Admin'] != True):
 		return render_template('login.html')
 	else:
-		return render_template('admin_dashboard.html')
+		return render_template('node_admin_dashboard.html')
 
 
 @app.route('/add_user', methods=['GET', 'POST'])
@@ -128,7 +118,7 @@ def upload_file():
 	# To upload files to the server
 
 
-def add_server():
+def data_node():
 	# To make a server *Accessible by admin only
 
 
@@ -156,7 +146,7 @@ def initiate_server():
 	s.close()
 
 
-def end_server():
+def end_data_node():
 	# End a server
 
 
