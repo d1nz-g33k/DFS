@@ -6,9 +6,13 @@ from wtforms import Form, TextField, TextAreaField, validators, StringField, Sub
 from werkzeug.utils import secure_filename
 import socket
 # import thread
+try:
+    from os import scandir, walk
+except ImportError:
+    from scandir import scandir, walk
 
 if __name__ == "__main__":
-	app.run()
+	app.run(port=8080)
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__)
@@ -54,33 +58,33 @@ def home(uid):
 	db=connect_db()
 	c=db.cursor()
 
-	if request.method == 'POST':
-		c.execute('SELECT Count() FROM Users')
-		N=c.fetchone()
-		c.execute('SELECT UID FROM Users')
-		r=c.fetchall()
-		for i in range(0,N[0]):
-			m=str(r[i])
-			q=uid
-			p="('"+q+"',)"
-			if p == m:
-				M=[m]
-				c.execute('SELECT pswd FROM Users WHERE uid=?', (q,))
-				pswd=c.fetchone()[0]
-				if(request.form.get('pswd', None) == pswd):
-					session[uid] = True
-					connect_server()
-					return redirect(url_for('user'))
-				else:
-					E='Invalid password'
+		# c.execute('SELECT Count() FROM Users')
+		# N=c.fetchone()
+		# c.execute('SELECT UID FROM Users')
+		# r=c.fetchall()
+		# for i in range(0,N[0]):
+		# 	m=str(r[i])
+		# 	q=uid
+		# 	p="('"+q+"',)"
+		# 	if p == m:
+		# 		M=[m]
+		# 		c.execute('SELECT pswd FROM Users WHERE uid=?', (q,))
+		# 		pswd=c.fetchone()[0]
+		# 		if(request.form.get('pswd', None) == pswd):
+		# 			session[uid] = True
+		# 			connect_server()
+				# else:
+				# 	E='Invalid password'
 	close_db(db)
 	return render_template('Node_Login.html')
 
 @app.route('/login')
-def re_route():
-	# Change later
-	# Route to load_balancer
-	return redirect('https://www.google.com')
+def login():
+	if request.method == 'POST':
+		return redirect(url_for('user'))
+# 	# Change later
+# 	# Route to load_balancer
+# 	return redirect('https://www.google.com')
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -98,12 +102,19 @@ def admin():
 		return render_template('node_admin_dashboard.html')
 
 
-@app.route('/user/<uid>', methods=['GET', 'POST'])
-def user(uid):
+@app.route('/user', methods=['GET', 'POST'])
+def user():
+	return render_template('user.html')
 	# if(session[uid] != True):
 	# 	return redirect(url_for('home'))
 	# create a session for the respective uid at login
-	return render_template('user.html', uid=uid)
+
+@app.route('/display', methods=['GET', 'POST'])
+def display():
+	# Collect data from the shared resource and display
+	print(scandir(path='C:\\Users\\Dinesh\\Documents\\GitHub\\DFS\\DFS\\File_Access'))
+	return render_template('index.html')
+
 
 def upload_file():
 	# To upload files to the server

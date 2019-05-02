@@ -60,36 +60,40 @@ def home():
 	R = c.fetchone()[0]
 
 	if request.method == 'POST':
-		g_usr=request.form.get('ID', None)
-		if request.form.get('ID', None) != (app.config['USERNAME']):
-			c.execute('SELECT Count() FROM Users')
-			N=c.fetchone()
-			c.execute('SELECT UID FROM Users')
-			r=c.fetchall()
-			for i in range(0,N[0]):
-				m=str(r[i])
-				q=request.form.get('ID', None)
-				p="('"+q+"',)"
-				if p == m:
-					M=[m]
-					# Check if username exists in the list
-					# If exists Check for the location and redirect to respective server_node
-					# Else Redirect to add user page
-					c.execute('SELECT LOC FROM Users WHERE UID=?', (q,))
-					loc=c.fetchone()[0]
-					c.execute('SELECT URL FROM Nodes WHERE LOC=?', (loc,))
-					url=c.fetchone()[0]
-					# connect_server()
-					url = url+'/login/'+q	# Add the details of the user to connect to the server_node
+		# g_usr=request.form.get('ID', None)
+		# if request.form.get('ID', None) != (app.config['USERNAME']):
+		# 	c.execute('SELECT Count() FROM Users')
+		# 	N=c.fetchone()
+		# 	c.execute('SELECT UID FROM Users')
+		# 	r=c.fetchall()
+		# 	for i in range(0,N[0]):
+		# 		m=str(r[i])
+		# 		q=request.form.get('ID', None)
+		# 		p="('"+q+"',)"
+		# 		if p == m:
+		# 			M=[m]
+		# 			# Check if username exists in the list
+		# 			# If exists Check for the location and redirect to respective server_node
+		# 			# Else Redirect to add user page
+		# 			c.execute('SELECT LOC FROM Users WHERE UID=?', (q,))
+		# 			loc=c.fetchone()[0]
+		# 			c.execute('SELECT URL FROM Nodes WHERE LOC=?', (loc,))
+		# 			url=c.fetchone()[0]
+		# 			# connect_server()
+		# 			url = url+'/login/'+q	# Add the details of the user to connect to the server_node
 					# So that the server_node knows the UID already and the user needn't enter the ID again.
 					# Make changes here later.
-					return redirect(url)
+		q=request.form.get('ID', None)
+		url = 'http://127.0.0.1:2000'
+		url = url+'/login/'+q
+		return redirect(url)
 
-		elif(request.form.get('ID', None) == (app.config['USERNAME'])):
-			return redirect(url_for('admin_login'))
+		# elif(request.form.get('ID', None) == (app.config['USERNAME'])):
+		# 	return redirect(url_for('admin_login'))
 		
-		else:
-			return redirect(url_for('home'))
+	# else:
+	# 	return redirect(url_for('home'))
+	
 	close_db(db)
 	return render_template('Login.html')
 
@@ -133,9 +137,10 @@ def add_user():
 		un = request.form.get('UID')
 		loc = request.form.get('LOC')
 
-		c.execute("INSERT into Users VALUES( ?, ?)", (un, loc,))
-		c.execute("SELECT URL FROM Nodes WHERE LOC=?", (loc,))
-		url=c.fetchone()[0]
+		# c.execute("INSERT into Users VALUES( ?, ?)", (un, loc,))
+		# c.execute("SELECT URL FROM Nodes WHERE LOC=?", (loc,))
+		# url=c.fetchone()[0]
+		url = 'http://127.0.0.1:2000'
 		url = url+'/'+fn+'/'+ln+'/'+g+'/'+un+'/'+loc 	# Make changes later
 
 		return redirect(url)

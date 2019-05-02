@@ -44,13 +44,27 @@
       };
       requestAnimationFrame(update);
     </script>
-	<div id="Login">
-		<div id="head"><h2>&emsp; Login</h2></div><br>
-		<form action="{{ url_for('login') }}" method=post>
+	<div id="Register">
+		<div id="head"><h2>&emsp;Register</h2></div><br>
+		<form action="{{ url_for('home') }}" method=post>
 			<div id="body">
-				<input type="password" name="pswd" placeholder="Password" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;"><br>
-				<input type="submit" value="Login" style="border-radius: 5px; background: #333333;color: #eeeeee; border-color: #555555; margin-top: 8px; margin-bottom: 12px;"><br>
-        <a href="{{ url_for('admin') }}" style="color: #ff4343;">New User?  Register</a>
+        <input type="text" name="User_ID" placeholder="ID" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;"><br>
+				<input type="text" name="fn" placeholder="first_name" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;"><br>
+        <input type="text" name="ln" placeholder="last_name" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;"><br>
+        <select placeholder="Gender" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;">
+          <option value="None">--Gender--</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select><br>
+        <select placeholder="Location" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;">
+          <option value="None">--Location--</option>
+          <option value="ASIA">ASIA</option>
+          <option value="EUROPE">EUROPE</option>
+          <option value="N/S AMERICA">N/S AMERICA</option>
+        </select><br>
+				<input type="submit" value="Register" style="border-radius: 5px; background: #333333;color: #eeeeee; border-color: #555555; margin-top: 8px; margin-bottom: 12px;"><br>
+        <a href="{{ url_for('home') }}" style="color: #ff4343;">Registered Member? Login</a>
 			</div>
 		</form> 
 	</div>
