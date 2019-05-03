@@ -46,11 +46,10 @@
     </script>
 	<div id="Login">
 		<div id="head"><h2>&emsp;Login</h2></div><br>
-		<form action="{{ url_for('user', uid=uid) }}" method=post>
+		<form action="{{ url_for('admin_login') }}" method=post>
 			<div id="body">
-				<input type="text" name="ID" placeholder="ID" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;"><br>
-				<input type="submit" value="Login" style="border-radius: 5px; background: #333333;color: #eeeeee; border-color: #555555; margin-top: 8px; margin-bottom: 12px;"><br>
-        <a href="{{ url_for('add_user') }}" style="color: #ff4343;">New User?  Register</a>
+				<input type="password" name="pswd" placeholder="Password" style="border-radius: 15px; background: #333333;color: #eeeeee; border-color: #555555; margin-bottom: 7px; text-align: center;"><br>
+				<input type="submit" value="Login_Admin" style="border-radius: 5px; background: #333333;color: #eeeeee; border-color: #555555; margin-top: 8px; margin-bottom: 12px;"><br>
 			</div>
 		</form> 
 	</div>

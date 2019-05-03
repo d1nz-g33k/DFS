@@ -6,6 +6,7 @@ from wtforms import Form, TextField, TextAreaField, validators, StringField, Sub
 from werkzeug.utils import secure_filename
 import socket
 # import thread
+import scandir as sc
 
 if __name__ == "__main__":
 	app.run()
@@ -68,9 +69,8 @@ def home(uid):
 				c.execute('SELECT pswd FROM Users WHERE uid=?', (q,))
 				pswd=c.fetchone()[0]
 				if(request.form.get('pswd', None) == pswd):
-					session[uid] = True
-					connect_server()
-					return redirect(url_for('user'))
+					session['User'] = True
+					return redirect(url_for('user', uid=uid))
 				else:
 					E='Invalid password'
 	close_db(db)
@@ -105,6 +105,12 @@ def user(uid):
 	# create a session for the respective uid at login
 	return render_template('user.html', uid=uid)
 
+@app.route('/display_files', methods=['GET', 'POST'])
+def display_files():
+	data = sc.scandir(path='C:\\Users\\Dinesh\\Documents\\GitHub\\DFS\\DFS\\File_Access')
+	# for f in data:
+	return render_template('index.html', data=data)
+
 def upload_file():
 	# To upload files to the server
 	pass
@@ -121,38 +127,3 @@ def data_node():
 	# To make a server *Accessible by admin only
 	pass
 
-
-# def initiate_server():
-# 	# To start the server
-# 	# Everytime a server starts the number of servers running is to be updated
-# 	# Also the database must be updated to the latest version.  
-# 	s = socket.socket()         # Create a socket object
-# 	host = socket.gethostname() # Get local machine name
-# 	port = 50000                
-# 	# Reserve a port for your service.
-
-# 	print ('Server started!')
-# 	print ('Waiting for clients...')
-
-# 	s.bind((host, port))        # Bind to the port
-# 	s.listen(5)                 # Now wait for client connection.
-
-# 	print ('Got connection from', addr)
-# 	while True:
-# 	   c, addr = s.accept()     # Establish connection with client.
-# 	   thread.start_new_thread(on_new_client,(c,addr))
-# 	   #Note it's (addr,) not (addr) because second parameter is a tuple
-# 	   #Edit: (c,addr)
-# 	   #that's how you pass arguments to functions when creating new threads using thread module.
-# 	s.close()
-
-# def on_new_client(clientsocket,addr):
-# 	# Actions done everytime a new user connects
-# 	while True:
-# 		msg = clientsocket.recv(1024)
-# 		#do some checks and if msg == someWeirdSignal: break:
-# 		print (addr, ' >> ', msg)
-# 		msg = raw_input('SERVER >> ')
-# 		#Maybe some code to compute the last digit of PI, play game or anything else can go here and when you are done.
-# 		clientsocket.send(msg)
-# 	clientsocket.close()

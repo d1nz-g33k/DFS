@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<title>DFS- Files</title>
+
+
+	<!-- Include our stylesheet -->
+	<link href="{{ url_for('static',filename='styles.css') }}" rel="stylesheet"/>
+
+</head>
+<body>
+
+	<div class="filemanager">
+
+		<div class="search">
+			<input type="search" placeholder="Find a file.." />
+		</div>
+
+		<div class="breadcrumbs"></div>
+
+		<ul class="data">
+			{% for f in data %} 
+			{% if (f.name.endswith(".txt")) %}
+			<a style="text-decoration:none" href= {{f.path}} title={{f.path}} class="files">
+			<span class="icon file f-txt">'.txt'</span>
+			<span class="name" style="color: white">{{f.name}}</span>
+			</a>
+			{% elif (f.name.endswith(".html")) %}
+			<a style="text-decoration:none" href={{f.path}} title={{f.path}} class="files">
+			<span class="icon file f-html">'.html'</span>
+			<span class="name" style="color: white">{{f.name}}</span>
+			</a>
+			{% elif (f.name.endswith(".css")) %}
+			<a style="text-decoration:none" href={{f.path}} title={{f.path}} class="files">
+			<span class="icon file f-css">'.css'</span>
+			<span class="name" style="color: white">{{f.name}}</span>
+			</a>
+			{%endif%}
+			{% endfor %}
+		</ul>
+
+		<div class="nothingfound">
+			<div class="nofiles"></div>
+			<span>No files here.</span>
+		</div>
+
+	</div>
+
+	<footer>
+        <a class="tz" href="http://www.google.com/">Google</a>
+        <div id="tzine-actions"></div>
+        <span class="close"></span>
+    </footer>
+
+</body>
+</html>
